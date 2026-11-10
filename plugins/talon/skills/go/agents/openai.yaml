@@ -1,4 +1,5 @@
 interface:
   display_name: "Talon"
   short_description: "Выбирает подходящий режим по задаче"
+  icon_small: "../../assets/talon.png"
   default_prompt: "Используй $talon:go и выбери подходящий режим по моей задаче."
