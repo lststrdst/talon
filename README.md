@@ -15,7 +15,7 @@ codex plugin marketplace add https://github.com/lststrdst/talon.git
 codex plugin add talon@talon-marketplace
 ```
 
-Откройте новый чат Codex в нужном проекте. Для обновления до **2.0.0** сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
+Откройте новый чат Codex в нужном проекте. Для обновления сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
 
 ## Режимы
 
@@ -51,6 +51,7 @@ done
 
 Устанавливаются отдельно и используются по задаче.
 
+- **OpenAI Plugin Eval** проверяет структуру навыков и манифест плагина Codex. В репозитории Talon можно попросить `$talon:go Оцени этот плагин через Plugin Eval`. [Установка CLI](https://github.com/openai/plugins/blob/main/plugins/plugin-eval/README.md#install-as-a-cli-tool)
 - **Vercel Agent Desktop** помогает QA проверить окна, меню и системные диалоги нативного приложения. Если CLI уже установлен, укажите Talon тестовое приложение и нужный сценарий. [Установка и права доступа](https://github.com/vercel-labs/agent-desktop/blob/main/docs/install.md)
 - **Graphify** строит карту связей в исходном коде. [Документация](https://docs.graphify.com/open-source/configuration/cli)
 - **Agent Reach** помогает найти публичные обсуждения для исследования аудитории. [Репозиторий](https://github.com/Panniantong/Agent-Reach)
