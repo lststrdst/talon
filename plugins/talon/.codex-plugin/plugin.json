@@ -1,6 +1,6 @@
 {
   "name": "talon",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Навыки для разработки, тестирования, продвижения и проверки безопасности в Codex.",
   "skills": "./skills/",
   "interface": {

@@ -15,6 +15,21 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools"
+    },
+    {
+      "name": "ecc",
+      "version": "2.2.3",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/affaan-m/ECC.git",
+        "ref": "v2.2.3",
+        "sha": "c05b2d6614f62f6db0047669aa4eefb223d478f9"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     }
   ]
 }

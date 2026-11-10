@@ -51,6 +51,7 @@ done
 
 Устанавливаются отдельно и используются по задаче.
 
+- **ECC** дополняет Talon практиками для API, миграций БД, тестов, релизов, продвижения и ревью безопасности. Установите `codex plugin add ecc@talon-marketplace`, затем в новом чате попросите `@Talon Спланируй миграцию БД без простоя с ECC`. Если ECC уже установлен из собственного каталога, используйте эту установку. [ECC для Codex](https://github.com/affaan-m/ECC/blob/v2.2.3/.codex-plugin/README.md)
 - **OpenAI Plugin Eval** проверяет структуру навыков и манифест плагина Codex. В репозитории Talon можно попросить `$talon:go Оцени этот плагин через Plugin Eval`. [Установка CLI](https://github.com/openai/plugins/blob/main/plugins/plugin-eval/README.md#install-as-a-cli-tool)
 - **Vercel Agent Desktop** помогает QA проверить окна, меню и системные диалоги нативного приложения. Если CLI уже установлен, укажите Talon тестовое приложение и нужный сценарий. [Установка и права доступа](https://github.com/vercel-labs/agent-desktop/blob/main/docs/install.md)
 - **Graphify** строит карту связей в исходном коде. [Документация](https://docs.graphify.com/open-source/configuration/cli)
