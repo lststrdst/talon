@@ -1,0 +1,6 @@
+interface:
+  display_name: "Talon · Проверка безопасности"
+  short_description: "Готовит проверку уязвимостей со Strix"
+  default_prompt: "Используй $talon:security и составь план проверки безопасности моего тестового стенда."
+policy:
+  allow_implicit_invocation: false

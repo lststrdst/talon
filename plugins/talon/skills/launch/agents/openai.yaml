@@ -1,4 +1,4 @@
 interface:
-  display_name: "Talon Launch"
+  display_name: "Talon · Продвижение"
   short_description: "Запуск продукта, продвижение и измеримый пилот"
   default_prompt: "Используй $talon:launch, чтобы составить план пилота с каналом, черновиком анонса и критериями решения."
