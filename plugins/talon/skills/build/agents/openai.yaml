@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon Build"
+  short_description: "План разработки с проверяемыми этапами"
+  default_prompt: "Используй $talon:build и предложи первый рабочий сценарий, порядок разработки и критерии готовности."

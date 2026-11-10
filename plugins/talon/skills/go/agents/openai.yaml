@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon"
+  short_description: "Разработка, QA, продвижение и пентест по запросу"
+  default_prompt: "Используй $talon:go и выбери подходящий режим по моей задаче."

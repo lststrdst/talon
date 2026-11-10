@@ -1,0 +1,10 @@
+{
+  "name": "talon",
+  "version": "1.4.0",
+  "description": "Личный набор для разработки, навигации по коду, независимого QA, запуска продуктов и пентеста по запросу.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Talon",
+    "shortDescription": "Пошаговая разработка, QA и продвижение"
+  }
+}
