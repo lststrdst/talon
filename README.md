@@ -17,6 +17,8 @@ codex plugin add talon@talon-marketplace
 
 Откройте новый чат Codex в нужном проекте. Для обновления сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
 
+Для ChatGPT в браузере скачайте [ZIP-архив Talon](https://github.com/lststrdst/talon/raw/refs/heads/main/releases/Talon-2.2.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит пять навыков Talon. Разработчик — `lststrdst`.
+
 ## Режимы
 
 - **Разработка** `$talon:build` — спланировать и сделать новую функцию или изменить существующую.
