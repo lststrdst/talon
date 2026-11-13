@@ -1,4 +1,8 @@
-# Talon
+<p align="center">
+  <img src="plugins/talon/assets/talon.png" alt="Иконка Talon" width="112" height="112" />
+</p>
+
+<h1 align="center">Talon</h1>
 
 Плагин для Codex, который помогает разработать функцию, проверить результат и подготовить запуск.
 
