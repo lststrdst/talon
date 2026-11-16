@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · Дизайн"
+  short_description: "Проектирует UI и проверяет UX с UI/UX Pro Max"
+  default_prompt: "Используй $talon:design, чтобы улучшить интерфейс проекта и проверить его удобство и доступность."

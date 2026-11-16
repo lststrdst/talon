@@ -1,11 +1,21 @@
 {
   "name": "talon",
-  "version": "2.2.0",
-  "description": "Навыки для разработки, тестирования, продвижения и проверки безопасности в Codex.",
+  "version": "2.3.0",
+  "description": "Навыки для разработки, дизайна, тестирования, запуска продукта и подбора навыков по стеку проекта.",
+  "author": {
+    "name": "lststrdst",
+    "url": "https://github.com/lststrdst"
+  },
   "skills": "./skills/",
   "interface": {
     "displayName": "Talon",
-    "shortDescription": "Разработка, тестирование и запуск продукта",
+    "shortDescription": "Разработка, дизайн и QA",
+    "longDescription": "Talon помогает спланировать продукт, разработать интерфейс, проверить изменения и подготовить запуск. Включает UI/UX Pro Max и сценарий подбора навыков через Autoskills.",
+    "developerName": "lststrdst",
+    "category": "Developer Tools",
+    "capabilities": ["Interactive"],
+    "websiteURL": "https://github.com/lststrdst/talon",
+    "defaultPrompt": ["Спланируй MVP, продумай интерфейс и предложи первый шаг разработки."],
     "composerIcon": "./assets/talon.png",
     "logo": "./assets/talon.png"
   }

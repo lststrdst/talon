@@ -1,0 +1,20 @@
+{
+  "name": "ui-ux-pro-max-skill",
+  "repository": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "commit": "e59ff376a41f7ca47b7541ad5c116495cbade3ee",
+  "declaredVersion": "2.15.0",
+  "license": "MIT",
+  "licenseFile": "LICENSE",
+  "copyright": "Copyright (c) 2024 Next Level Builder",
+  "vendoredSources": {
+    "data/": "src/ui-ux-pro-max/data/",
+    "scripts/search.py": "src/ui-ux-pro-max/scripts/search.py",
+    "scripts/core.py": "src/ui-ux-pro-max/scripts/core.py",
+    "scripts/design_system.py": "src/ui-ux-pro-max/scripts/design_system.py",
+    "scripts/reasoning_contract.py": "src/ui-ux-pro-max/scripts/reasoning_contract.py",
+    "scripts/preview.py": "src/ui-ux-pro-max/scripts/preview.py",
+    "references/quick-reference.md": ".claude/skills/ui-ux-pro-max/references/quick-reference.md",
+    "references/pro-rules.md": ".claude/skills/ui-ux-pro-max/references/pro-rules.md"
+  },
+  "adaptation": "Talon provides Russian SKILL.md, agents/openai.yaml and references/search.md. Vendored data, Python modules, two upstream references and LICENSE are preserved unchanged."
+}
