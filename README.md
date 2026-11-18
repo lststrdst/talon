@@ -21,7 +21,9 @@ codex plugin add talon@talon-marketplace
 
 Откройте новый чат Codex в нужном проекте. Для обновления сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
 
-Для ChatGPT в браузере скачайте [ZIP-архив Talon](https://github.com/lststrdst/talon/raw/refs/heads/main/releases/Talon-2.4.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит семь навыков, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
+Для ChatGPT в браузере скачайте [ZIP-архив Talon](https://github.com/lststrdst/talon/raw/refs/heads/main/releases/Talon-2.5.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит семь навыков, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
+
+Для обычных задач Talon использует модель основного чата. В Codex можно выбрать GPT-6.2 Sol по умолчанию. Для сложного этапа Talon подключает GPT-6.2 Astra, если среда поддерживает выбор модели подагента. В локальном Codex также доступен профиль `talon-astra` из инструкции ниже.
 
 ## Режимы
 
@@ -37,9 +39,9 @@ codex plugin add talon@talon-marketplace
 UI/UX Pro Max включён с исходной лицензией MIT. Autoskills подключён как отдельный CLI версии 0.4.1 и распространяется по CC BY-NC 4.0. [UI/UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) · [Autoskills](https://github.com/midudev/autoskills)
 
 <details>
-<summary>Подключить именованных QA-агентов</summary>
+<summary>Подключить профили QA и Astra</summary>
 
-Шесть профилей помогают разделить диагностику, браузерные проверки, API, Windows, исправление и независимое ревью.
+Шесть профилей помогают разделить диагностику, браузерные проверки, API, Windows, исправление и независимое ревью. Для сложного этапа `talon-astra` закрепляет GPT-6.2 Astra.
 
 ```sh
 git clone https://github.com/lststrdst/talon.git
