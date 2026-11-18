@@ -1,6 +1,6 @@
 {
   "name": "talon",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Навыки для разработки, дизайна, тестирования, запуска продукта и подбора навыков по стеку проекта.",
   "author": {
     "name": "lststrdst",
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "Talon",
     "shortDescription": "Разработка, дизайн и QA",
-    "longDescription": "Talon помогает спланировать продукт, разработать интерфейс, проверить изменения и подготовить запуск. Включает UI/UX Pro Max и сценарий подбора навыков через Autoskills.",
+    "longDescription": "Talon помогает спланировать продукт, разработать интерфейс, проверить изменения и подготовить запуск. Включает UI/UX Pro Max и точечное подключение дополнительных навыков по ходу задачи через Autoskills.",
     "developerName": "lststrdst",
     "category": "Developer Tools",
     "capabilities": ["Interactive"],
