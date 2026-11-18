@@ -21,9 +21,9 @@ codex plugin add talon@talon-marketplace
 
 Откройте новый чат Codex в нужном проекте. Для обновления сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
 
-Для ChatGPT в браузере скачайте [ZIP-архив Talon](https://github.com/lststrdst/talon/raw/refs/heads/main/releases/Talon-2.5.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит семь навыков, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
+Для ChatGPT в браузере скачайте [ZIP-архив Talon](https://github.com/lststrdst/talon/raw/refs/heads/main/releases/Talon-2.5.1-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит семь навыков, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
 
-Для обычных задач Talon использует модель основного чата. В Codex можно выбрать GPT-6.2 Sol по умолчанию. Для сложного этапа Talon подключает GPT-6.2 Astra, если среда поддерживает выбор модели подагента. В локальном Codex также доступен профиль `talon-astra` из инструкции ниже.
+Для обычных задач Talon использует модель основного чата. В Codex можно выбрать GPT-6.2 Sol с уровнем Ultra по умолчанию. Для сложного этапа Talon подключает GPT-6.2 Astra с уровнем Extra High, если среда поддерживает выбор модели подагента. В локальном Codex также доступен профиль `talon-astra` из инструкции ниже.
 
 ## Режимы
 
@@ -57,6 +57,8 @@ done
 ```
 
 Откройте новый чат. Для установки ролей только в одном проекте скопируйте профили в его `.codex/agents/`. [Документация Codex](https://learn.chatgpt.com/docs/agent-configuration/subagents#custom-agents)
+
+Если `talon-astra` уже установлен, для уровня Extra High обновите в его TOML `model_reasoning_effort` до `"xhigh"`.
 
 </details>
 
