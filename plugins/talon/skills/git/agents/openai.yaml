@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · Git"
+  short_description: "Работает с ветками, коммитами и remote"
+  default_prompt: "Используй $talon:git, проверь рабочую копию и выполни запрошенную операцию Git."

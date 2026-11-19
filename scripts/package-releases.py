@@ -92,7 +92,7 @@ def build_portable(web_manifest, web_entries):
         entries[SKILL_ROOT + "references/" + filename] = content.encode("utf-8")
     for name in HARNESS_SKILLS:
         entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
-    shared_skills = ("stack", "checks", "e2e", "directory", "delivery", "research", "autoskills", "design", "visuals", "workflows")
+    shared_skills = ("stack", "checks", "e2e", "git", "directory", "delivery", "research", "autoskills", "design", "visuals", "workflows")
     shared_prefixes = tuple(f"skills/{name}/" for name in shared_skills)
     shared_references = (
         "skills/go/references/project-memory.md",
