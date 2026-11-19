@@ -47,6 +47,10 @@ FILE_RUNNERS = {
     "turbo.json": "turbo", "turbo.jsonc": "turbo",
     "phpunit.xml": "phpunit", "phpunit.xml.dist": "phpunit", "pytest.ini": "pytest",
     "pesterconfiguration.psd1": "pester",
+    ".appiumrc": "appium", ".appiumrc.cjs": "appium", ".appiumrc.js": "appium", ".appiumrc.json": "appium",
+    ".appiumrc.yaml": "appium", ".appiumrc.yml": "appium", "appium.config.cjs": "appium", "appium.config.js": "appium",
+    ".detoxrc": "detox", ".detoxrc.js": "detox", ".detoxrc.json": "detox", "detox.config.js": "detox",
+    "detox.config.json": "detox", "cypress.json": "cypress",
 }
 EXTENSION_SIGNALS = {
     ".bash": "shell", ".bat": "windows-native", ".cmd": "windows-native",
@@ -73,6 +77,8 @@ NODE_SIGNALS = {
 NODE_RUNNERS = {
     "jest": {"jest", "@jest/core", "ts-jest"}, "vitest": {"vitest"},
     "playwright": {"@playwright/test"}, "mocha": {"mocha"},
+    "cypress": {"cypress"}, "detox": {"detox"}, "appium": {"appium", "@wdio/appium-service"},
+    "webdriverio": {"webdriverio", "wdio", "@wdio/cli", "@wdio/local-runner", "@wdio/appium-service"},
 }
 PHP_SIGNALS = {
     "laravel": {"laravel/framework"}, "postgresql": {"ext-pgsql", "ext-pdo_pgsql"},
@@ -85,11 +91,24 @@ PYTHON_SIGNALS = {
     "postgresql": {"asyncpg", "psycopg", "psycopg-binary", "psycopg2", "psycopg2-binary", "pg8000"},
     "sqlite": {"aiosqlite", "pysqlite3", "pysqlite3-binary", "apsw"},
 }
-PYTHON_RUNNERS = {"pytest": {"pytest"}, "testinfra": {"pytest-testinfra"}, "nox": {"nox"}}
+PYTHON_RUNNERS = {
+    "pytest": {"pytest"}, "testinfra": {"pytest-testinfra"}, "nox": {"nox"},
+    "playwright": {"pytest-playwright", "pytest-playwright-asyncio"}, "appium": {"appium-python-client"},
+}
 
 REQUIREMENTS_NAME = re.compile(r"(?:requirements|constraints)(?:[.-][a-z0-9_.-]+)?\.(?:txt|in)$")
 COMPOSE_NAME = re.compile(r"(?:docker-)?compose(?:\.[a-z0-9_-]+)*\.ya?ml$")
-JS_CONFIG = re.compile(r"(next|vite|vitest|jest|playwright)\.config\.(?:[cm]?[jt]s)$")
+JS_CONFIG = re.compile(r"(next|vite|vitest|jest|playwright|cypress)\.config\.(?:[cm]?[jt]s)$")
+WDIO_CONFIG = re.compile(r"wdio(?:\.[a-z0-9_-]+)*\.conf(?:\.[a-z0-9_-]+)*\.(?:[cm]?[jt]s)$")
+CYPRESS_SPEC = re.compile(r".+\.cy\.[jt]sx?$")
+MAESTRO_HIDDEN_DIRECTORY = ".maestro"
+MAESTRO_DIRECTORY = "maestro"
+MAESTRO_CONFIG = "config.yaml"
+MAESTRO_DOCUMENT = re.compile(r"^---[ \t]*(?:#[^\r\n]*)?\r?$", re.MULTILINE)
+MAESTRO_HEADER = re.compile(r"^(?:appId|url):[ \t]*[^#\s]", re.MULTILINE)
+MAESTRO_COMMANDS = re.compile(
+    r"(?:[ \t]*(?:#[^\r\n]*)?\r?\n)*[ \t]*-[ \t]+[a-zA-Z][a-zA-Z0-9]*[ \t]*(?=[:#]|\r?(?:\n|\Z))"
+)
 TYPE_CONFIG = re.compile(r"tsconfig\.[a-z0-9_.-]+\.json$")
 SAFE_SCRIPT = re.compile(
     r"(?:analyze|build|check|compile|dev|e2e|format|lint|preview|qa|smoke|start|test|type-?check|validate|verify)"
@@ -121,6 +140,8 @@ WINDOWS_PROJECT = re.compile(
 
 
 def skip_directory(name):
+    if name == MAESTRO_HIDDEN_DIRECTORY:
+        return False
     return name.startswith(".") or name in SKIP_DIRECTORIES or SNAPSHOT_DIRECTORY.search(name) is not None
 
 
@@ -130,6 +151,19 @@ def skip_file(name):
 
 def is_link(info):
     return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT)
+
+
+def maestro_workspace(path, root):
+    workspace = None
+    for parent in path.parents:
+        name = parent.name.casefold()
+        if name == MAESTRO_HIDDEN_DIRECTORY:
+            return parent
+        if name == MAESTRO_DIRECTORY and workspace is None:
+            workspace = parent
+        if parent == root:
+            break
+    return workspace
 
 
 def project_scope(project_path, target_path):
@@ -372,6 +406,9 @@ class Detection:
             return
         names = dependency_names(data, ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies"))
         self.add_dependencies(names, NODE_SIGNALS, NODE_RUNNERS, path)
+        for key, runner in (("appiumConfig", "appium"), ("detox", "detox")):
+            if dict_value(data.get(key)):
+                self.add(self.runners, runner, path)
         if isinstance(dict_value(data.get("engines")).get("vscode"), str):
             self.add(self.signals, "vscode-extension", path)
         manager = data.get("packageManager")
@@ -413,9 +450,32 @@ class Detection:
             if any(line.startswith("\t") and UNITTEST.match(line) for line in content.splitlines()):
                 self.add(self.runners, "unittest", path)
 
+    def inspect_maestro(self, path, workspace):
+        if workspace is not None and path.name.casefold() == MAESTRO_CONFIG:
+            return
+        documents = MAESTRO_DOCUMENT.split(self.read_manifest(path), maxsplit=3)
+        if not any(MAESTRO_HEADER.search(header) and MAESTRO_COMMANDS.match(commands)
+                   for header, commands in zip(documents, documents[1:])):
+            return
+        self.add(self.runners, "maestro", path)
+        if workspace is None:
+            return
+        config = workspace / MAESTRO_CONFIG
+        try:
+            info = config.lstat()
+        except OSError:
+            return
+        if stat.S_ISREG(info.st_mode) and not is_link(info):
+            self.add(self.runners, "maestro", config)
+
     def inspect_file(self, path):
         name = path.name.casefold()
         extension = path.suffix.casefold()
+        workspace = maestro_workspace(path, self.root)
+        if (workspace is not None or path == self.scope) and extension in {".yaml", ".yml"}:
+            self.inspect_maestro(path, workspace)
+        if workspace is not None and workspace.name.casefold() == MAESTRO_HIDDEN_DIRECTORY:
+            return
         self.add(self.signals, EXTENSION_SIGNALS.get(extension), path)
         self.add(self.signals, FILE_SIGNALS.get(name), path)
         self.add(self.runners, FILE_RUNNERS.get(name), path)
@@ -438,6 +498,12 @@ class Detection:
                 self.add(self.signals, config[1], path)
             else:
                 self.add(self.runners, config[1], path)
+        if WDIO_CONFIG.fullmatch(name):
+            self.add(self.runners, "webdriverio", path)
+        if CYPRESS_SPEC.fullmatch(name):
+            parts = tuple(part.casefold() for part in path.relative_to(self.root).parts[:-1])
+            if ("cypress", "e2e") in zip(parts, parts[1:]):
+                self.add(self.runners, "cypress", path)
         if name.endswith(".tests.ps1"):
             self.add(self.runners, "pester", path)
         elif name.startswith("test-") and extension == ".ps1":
@@ -525,7 +591,7 @@ def ancestor_marker(path):
     name = path.name.casefold()
     return (
         name in LOCK_RUNNERS or name in FILE_RUNNERS or (name in FILE_SIGNALS and name not in {"index.htm", "index.html"})
-        or JS_CONFIG.fullmatch(name) or TYPE_CONFIG.fullmatch(name)
+        or JS_CONFIG.fullmatch(name) or WDIO_CONFIG.fullmatch(name) or TYPE_CONFIG.fullmatch(name)
         or name == "dockerfile" or name.startswith("dockerfile.")
         or path.suffix.casefold() in {".sln", ".slnx", ".csproj", ".fsproj", ".vbproj"}
         or manifest_kind(path)
@@ -534,7 +600,8 @@ def ancestor_marker(path):
 
 def evidence_priority(relative):
     path = Path(relative)
-    return (not ancestor_marker(path), len(path.parts), relative)
+    maestro_config = path.name == MAESTRO_CONFIG and path.parent.name.casefold() in {MAESTRO_DIRECTORY, MAESTRO_HIDDEN_DIRECTORY}
+    return (not ancestor_marker(path), maestro_config, len(path.parts), relative)
 
 
 def main(argv=None):

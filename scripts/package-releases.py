@@ -13,6 +13,7 @@ PORTABLE = ROOT / "portable"
 SKILL_ROOT = "skills/talon/"
 SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 HARNESS_SKILLS = ("harness-hermes", "harness-opencode", "harness-openclaw", "harness-pi", "harness-deepseek")
+E2E_PROFILE = "agent-profiles/talon-e2e.toml"
 
 
 def write_zip(path, entries):
@@ -45,6 +46,7 @@ def build_web():
         raise ValueError("interface.capabilities must be a list of strings")
 
     entries = {".codex-plugin/plugin.json": (PLUGIN / ".codex-plugin/plugin.json").read_bytes()}
+    entries[E2E_PROFILE] = (PLUGIN / E2E_PROFILE).read_bytes()
     for directory in ("skills", "assets"):
         for path in (PLUGIN / directory).rglob("*"):
             relative = path.relative_to(PLUGIN)
@@ -55,6 +57,7 @@ def build_web():
 
 def build_portable(web_manifest, web_entries):
     entries = {
+        E2E_PROFILE: web_entries[E2E_PROFILE],
         "README.md": (PORTABLE / "README.md").read_bytes(),
         "PROJECT-RULES.md": (PORTABLE / "PROJECT-RULES.md").read_bytes(),
         SKILL_ROOT + "SKILL.md": (PORTABLE / "talon/SKILL.md").read_bytes(),
@@ -89,7 +92,7 @@ def build_portable(web_manifest, web_entries):
         entries[SKILL_ROOT + "references/" + filename] = content.encode("utf-8")
     for name in HARNESS_SKILLS:
         entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
-    shared_skills = ("stack", "checks", "directory", "delivery", "research", "autoskills", "design", "visuals", "workflows")
+    shared_skills = ("stack", "checks", "e2e", "directory", "delivery", "research", "autoskills", "design", "visuals", "workflows")
     shared_prefixes = tuple(f"skills/{name}/" for name in shared_skills)
     shared_references = (
         "skills/go/references/project-memory.md",
