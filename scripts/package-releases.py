@@ -91,7 +91,7 @@ def build_portable(web_manifest, web_entries):
     for name in HARNESS_SKILLS:
         entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
     for name, content in web_entries.items():
-        if name.startswith(("skills/stack/", "skills/checks/", "skills/directory/", "skills/delivery/")) and "/agents/" not in name:
+        if name.startswith(("skills/stack/", "skills/checks/", "skills/directory/", "skills/delivery/", "skills/research/")) and "/agents/" not in name:
             entries[name] = content
     return entries
 
