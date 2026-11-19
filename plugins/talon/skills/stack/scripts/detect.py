@@ -42,8 +42,9 @@ FILE_SIGNALS = {
 }
 FILE_RUNNERS = {
     ".actrc": "act", ".justfile": "just", ".mise.toml": "mise", "justfile": "just", "mise.toml": "mise",
-    "noxfile.py": "nox", "taskfile.yml": "task", "taskfile.yaml": "task",
+    "noxfile.py": "nox", "nx.json": "nx", "taskfile.yml": "task", "taskfile.yaml": "task",
     "taskfile.dist.yml": "task", "taskfile.dist.yaml": "task", "uv.lock": "uv",
+    "turbo.json": "turbo", "turbo.jsonc": "turbo",
     "phpunit.xml": "phpunit", "phpunit.xml.dist": "phpunit", "pytest.ini": "pytest",
     "pesterconfiguration.psd1": "pester",
 }
