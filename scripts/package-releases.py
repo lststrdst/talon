@@ -79,7 +79,6 @@ def build_portable(web_manifest, web_entries):
         "linux-server.md": "build/references/linux-server.md",
         "graphify.md": "build/references/graphify.md",
         "failure-testing.md": "qa/references/failure-testing.md",
-        "project-memory.md": "go/references/project-memory.md",
         "harness-routing.md": "go/references/harness-routing.md",
     }
     entries[SKILL_ROOT + "scripts/verify.py"] = (PLUGIN / "skills/build/scripts/verify.py").read_bytes()
@@ -90,8 +89,16 @@ def build_portable(web_manifest, web_entries):
         entries[SKILL_ROOT + "references/" + filename] = content.encode("utf-8")
     for name in HARNESS_SKILLS:
         entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
+    shared_skills = ("stack", "checks", "directory", "delivery", "research", "autoskills", "design", "visuals", "workflows")
+    shared_prefixes = tuple(f"skills/{name}/" for name in shared_skills)
+    shared_references = (
+        "skills/go/references/project-memory.md",
+        "skills/go/references/context.md",
+        "skills/go/references/ECC-LICENSE.txt",
+        "skills/launch/references/agent-reach.md",
+    )
     for name, content in web_entries.items():
-        if name.startswith(("skills/stack/", "skills/checks/", "skills/directory/", "skills/delivery/", "skills/research/")) and "/agents/" not in name:
+        if name in shared_references or (name.startswith(shared_prefixes) and "/agents/" not in name):
             entries[name] = content
     return entries
 

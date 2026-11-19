@@ -1,6 +1,6 @@
 {
   "name": "talon",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "description": "Навыки для разработки, дизайна, тестирования, запуска продукта и администрирования Windows Server и Linux.",
   "author": {
     "name": "lststrdst",
@@ -10,7 +10,7 @@
   "interface": {
     "displayName": "Talon",
     "shortDescription": "Разработка, дизайн и QA",
-    "longDescription": "Talon разбирает код, реализует фичи, пишет и проверяет скрипты Python и PowerShell. Помогает с QA, Windows Server, Linux, дизайном и запуском продукта. Ищет решения в Git, GitHub и интернете, использует браузер для QA и подбирает навыки через Autoskills.",
+    "longDescription": "Talon помогает разрабатывать и тестировать проекты, администрировать Windows Server и Linux, проектировать интерфейсы, готовить изображения и автоматизации n8n. Ищет решения в Git, GitHub, Reddit и документации. Подключает специализированные навыки по задаче.",
     "developerName": "lststrdst",
     "category": "Developer Tools",
     "capabilities": ["Interactive"],
