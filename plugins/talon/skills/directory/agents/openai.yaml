@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · AD, DNS и Яндекс"
+  short_description: "Проверяет AD, GPO, DNS и синхронизацию Яндекс 360"
+  default_prompt: "Используй $talon:directory, подбери документацию по моей версии и предложи проверку эффекта на согласованной среде."
