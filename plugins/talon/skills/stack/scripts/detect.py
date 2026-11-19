@@ -41,6 +41,9 @@ FILE_SIGNALS = {
     "uv.lock": "python",
 }
 FILE_RUNNERS = {
+    ".actrc": "act", ".justfile": "just", ".mise.toml": "mise", "justfile": "just", "mise.toml": "mise",
+    "noxfile.py": "nox", "taskfile.yml": "task", "taskfile.yaml": "task",
+    "taskfile.dist.yml": "task", "taskfile.dist.yaml": "task", "uv.lock": "uv",
     "phpunit.xml": "phpunit", "phpunit.xml.dist": "phpunit", "pytest.ini": "pytest",
     "pesterconfiguration.psd1": "pester",
 }
@@ -63,6 +66,7 @@ NODE_SIGNALS = {
     "tailwind": {"tailwindcss", "@tailwindcss/vite"}, "vinext": {"vinext"},
     "postgresql": {"pg", "postgres", "postgresql", "pg-promise", "@neondatabase/serverless"},
     "sqlite": {"sqlite", "sqlite3", "better-sqlite3", "@libsql/client"},
+    "testcontainers": {"testcontainers", "@testcontainers/postgresql", "@testcontainers/redis", "@testcontainers/mysql"},
     "pwa": {"vite-plugin-pwa", "next-pwa", "@ducanh2912/next-pwa", "workbox-webpack-plugin"},
 }
 NODE_RUNNERS = {
@@ -76,10 +80,11 @@ PHP_SIGNALS = {
 PHP_RUNNERS = {"phpunit": {"phpunit/phpunit"}, "pest": {"pestphp/pest"}}
 PYTHON_SIGNALS = {
     "fastapi": {"fastapi"}, "redis": {"redis"},
+    "testcontainers": {"testcontainers"},
     "postgresql": {"asyncpg", "psycopg", "psycopg-binary", "psycopg2", "psycopg2-binary", "pg8000"},
     "sqlite": {"aiosqlite", "pysqlite3", "pysqlite3-binary", "apsw"},
 }
-PYTHON_RUNNERS = {"pytest": {"pytest"}}
+PYTHON_RUNNERS = {"pytest": {"pytest"}, "testinfra": {"pytest-testinfra"}, "nox": {"nox"}}
 
 REQUIREMENTS_NAME = re.compile(r"(?:requirements|constraints)(?:[.-][a-z0-9_.-]+)?\.(?:txt|in)$")
 COMPOSE_NAME = re.compile(r"(?:docker-)?compose(?:\.[a-z0-9_-]+)*\.ya?ml$")
@@ -98,7 +103,8 @@ NODE_TEST = re.compile(r"^\s*node\s+--test(?:\s|$)")
 UNITTEST = re.compile(r"^\s*[@+\-]?(?:python(?:3(?:\.\d+)?)?|\$\(PYTHON\))\s+-m\s+unittest(?:\s|$)")
 PYTEST = re.compile(r"^\s*(?:(?:uv|poetry)\s+run\s+)?(?:python(?:3(?:\.\d+)?)?\s+-m\s+)?pytest(?:\s|$)")
 WORKFLOW_RUN = re.compile(r"^(\s*(?:-\s+)?)run:\s*(.*)$")
-WORKFLOW_RUNNERS = {"node-test": NODE_TEST, "pytest": PYTEST, "unittest": UNITTEST}
+ACTIONLINT = re.compile(r"^\s*actionlint(?:\s|$)")
+WORKFLOW_RUNNERS = {"actionlint": ACTIONLINT, "node-test": NODE_TEST, "pytest": PYTEST, "unittest": UNITTEST}
 COMPOSE_IMAGE = re.compile(
     r"^[ \t]+image:[ \t]*['\"]?(?:(?:docker\.io/)?library/|docker\.io/)?(postgres|redis)(?:[:@][\w.:@/-]+)?"
     r"['\"]?[ \t]*(?:#.*)?$", re.MULTILINE
@@ -118,7 +124,7 @@ def skip_directory(name):
 
 
 def skip_file(name):
-    return name.startswith(".") or SKIP_FILE.match(name) is not None
+    return (name.startswith(".") and name not in FILE_RUNNERS) or SKIP_FILE.match(name) is not None
 
 
 def is_link(info):
@@ -412,6 +418,8 @@ class Detection:
         self.add(self.signals, EXTENSION_SIGNALS.get(extension), path)
         self.add(self.signals, FILE_SIGNALS.get(name), path)
         self.add(self.runners, FILE_RUNNERS.get(name), path)
+        if name == "molecule.yml" and path.parent.parent.name.casefold() == "molecule":
+            self.add(self.runners, "molecule", path)
         manager = LOCK_RUNNERS.get(name)
         if manager or name == "package.json":
             self.add(self.signals, "node", path)

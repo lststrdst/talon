@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · Воспроизводимые проверки"
+  short_description: "Проверяет CI, тестовые сервисы, UI и отчёты"
+  default_prompt: "Используй $talon:checks, выбери штатную проверку и подтверди результат фактическим прогоном."
