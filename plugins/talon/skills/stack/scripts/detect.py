@@ -50,7 +50,7 @@ FILE_RUNNERS = {
     ".appiumrc": "appium", ".appiumrc.cjs": "appium", ".appiumrc.js": "appium", ".appiumrc.json": "appium",
     ".appiumrc.yaml": "appium", ".appiumrc.yml": "appium", "appium.config.cjs": "appium", "appium.config.js": "appium",
     ".detoxrc": "detox", ".detoxrc.js": "detox", ".detoxrc.json": "detox", "detox.config.js": "detox",
-    "detox.config.json": "detox", "cypress.json": "cypress",
+    "detox.config.json": "detox", "cypress.json": "cypress", "stryker.config.json": "stryker",
 }
 EXTENSION_SIGNALS = {
     ".bash": "shell", ".bat": "windows-native", ".cmd": "windows-native",
@@ -66,6 +66,7 @@ EXTENSION_SIGNALS = {
 NODE_SIGNALS = {
     "react": {"react", "react-dom"}, "next": {"next"}, "vite": {"vite"},
     "express": {"express"}, "typescript": {"typescript"},
+    "fast-check": {"fast-check"},
     "nestjs": {"@nestjs/core"}, "prisma": {"prisma", "@prisma/client"},
     "redis": {"redis", "ioredis", "@redis/client"}, "bullmq": {"bullmq"},
     "tailwind": {"tailwindcss", "@tailwindcss/vite"}, "vinext": {"vinext"},
@@ -76,6 +77,7 @@ NODE_SIGNALS = {
 }
 NODE_RUNNERS = {
     "jest": {"jest", "@jest/core", "ts-jest"}, "vitest": {"vitest"},
+    "stryker": {"@stryker-mutator/core"},
     "playwright": {"@playwright/test"}, "mocha": {"mocha"},
     "cypress": {"cypress"}, "detox": {"detox"}, "appium": {"appium", "@wdio/appium-service"},
     "webdriverio": {"webdriverio", "wdio", "@wdio/cli", "@wdio/local-runner", "@wdio/appium-service"},
@@ -86,19 +88,21 @@ PHP_SIGNALS = {
 }
 PHP_RUNNERS = {"phpunit": {"phpunit/phpunit"}, "pest": {"pestphp/pest"}}
 PYTHON_SIGNALS = {
+    "hypothesis": {"hypothesis"},
     "fastapi": {"fastapi"}, "redis": {"redis"},
     "testcontainers": {"testcontainers"},
     "postgresql": {"asyncpg", "psycopg", "psycopg-binary", "psycopg2", "psycopg2-binary", "pg8000"},
     "sqlite": {"aiosqlite", "pysqlite3", "pysqlite3-binary", "apsw"},
 }
 PYTHON_RUNNERS = {
+    "mutmut": {"mutmut"},
     "pytest": {"pytest"}, "testinfra": {"pytest-testinfra"}, "nox": {"nox"},
     "playwright": {"pytest-playwright", "pytest-playwright-asyncio"}, "appium": {"appium-python-client"},
 }
 
 REQUIREMENTS_NAME = re.compile(r"(?:requirements|constraints)(?:[.-][a-z0-9_.-]+)?\.(?:txt|in)$")
 COMPOSE_NAME = re.compile(r"(?:docker-)?compose(?:\.[a-z0-9_-]+)*\.ya?ml$")
-JS_CONFIG = re.compile(r"(next|vite|vitest|jest|playwright|cypress)\.config\.(?:[cm]?[jt]s)$")
+JS_CONFIG = re.compile(r"(next|vite|vitest|jest|playwright|cypress|stryker)\.config\.(?:[cm]?[jt]s)$")
 WDIO_CONFIG = re.compile(r"wdio(?:\.[a-z0-9_-]+)*\.conf(?:\.[a-z0-9_-]+)*\.(?:[cm]?[jt]s)$")
 CYPRESS_SPEC = re.compile(r".+\.cy\.[jt]sx?$")
 MAESTRO_HIDDEN_DIRECTORY = ".maestro"
@@ -259,6 +263,8 @@ def python_metadata(text):
                 runners.add("pytest")
             if section == "tool.unittest":
                 runners.add("unittest")
+            if section in {"tool.mutmut", "mutmut"}:
+                runners.add("mutmut")
             continue
         if multiline:
             dependencies.extend(match[1] or match[2] for match in QUOTED_VALUE.finditer(line))

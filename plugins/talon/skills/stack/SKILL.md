@@ -21,6 +21,8 @@ python3 "$talon_stack_dir/scripts/detect.py" --project "$talon_project" --target
 
 Для выбора тестов по графу Nx или Turborepo после изменения нескольких пакетов используй [затронутые компоненты и CI](../delivery/references/affected-ci.md).
 
+Если в проекте объявлены Hypothesis или fast-check, используй их для [проверки свойств данных](../checks/references/property-tests.md). Наличие mutmut или Stryker подсказывает, как [проверить тесты на изменённом условии](../checks/references/mutation-tests.md).
+
 | Признаки | Какое руководство открыть |
 | --- | --- |
 | Node, JavaScript, TypeScript, React, Next, Vite, Express, NestJS, VS Code или web-манифест | [Web и Node.js](references/web.md) |
