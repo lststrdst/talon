@@ -87,7 +87,7 @@ JS_CONFIG = re.compile(r"(next|vite|vitest|jest|playwright)\.config\.(?:[cm]?[jt
 TYPE_CONFIG = re.compile(r"tsconfig\.[a-z0-9_.-]+\.json$")
 SAFE_SCRIPT = re.compile(
     r"(?:analyze|build|check|compile|dev|e2e|format|lint|preview|qa|smoke|start|test|type-?check|validate|verify)"
-    r"(?:(?::|-)[a-z0-9][a-z0-9._-]*)*",
+    r"(?:[-:][a-z0-9][a-z0-9._-]*(?::[a-z0-9][a-z0-9._-]*)*)?",
     re.ASCII,
 )
 PACKAGE_REQUIREMENT = re.compile(r"^([A-Za-z0-9][A-Za-z0-9_.-]*)(?=\s*$|[\s<>=!~\[;@])")
@@ -100,8 +100,8 @@ PYTEST = re.compile(r"^\s*(?:(?:uv|poetry)\s+run\s+)?(?:python(?:3(?:\.\d+)?)?\s
 WORKFLOW_RUN = re.compile(r"^(\s*(?:-\s+)?)run:\s*(.*)$")
 WORKFLOW_RUNNERS = {"node-test": NODE_TEST, "pytest": PYTEST, "unittest": UNITTEST}
 COMPOSE_IMAGE = re.compile(
-    r"^\s+image:\s*['\"]?(?:(?:docker\.io/)?library/|docker\.io/)?(postgres|redis)(?:[:@][\w.:@/-]+)?"
-    r"['\"]?\s*(?:#.*)?$", re.MULTILINE
+    r"^[ \t]+image:[ \t]*['\"]?(?:(?:docker\.io/)?library/|docker\.io/)?(postgres|redis)(?:[:@][\w.:@/-]+)?"
+    r"['\"]?[ \t]*(?:#.*)?$", re.MULTILINE
 )
 OPENWRT_INCLUDE = re.compile(
     r"^\s*include\s+(?:\$\(TOPDIR\)/rules\.mk|\$\(INCLUDE_DIR\)/(?:package|kernel|host-build)\.mk|"
@@ -114,17 +114,15 @@ WINDOWS_PROJECT = re.compile(
 
 
 def skip_directory(name):
-    return name.startswith(".") or name in SKIP_DIRECTORIES or SNAPSHOT_DIRECTORY.search(name)
+    return name.startswith(".") or name in SKIP_DIRECTORIES or SNAPSHOT_DIRECTORY.search(name) is not None
 
 
 def skip_file(name):
-    return name.startswith(".") or SKIP_FILE.match(name)
+    return name.startswith(".") or SKIP_FILE.match(name) is not None
 
 
 def is_link(info):
-    return stat.S_ISLNK(info.st_mode) or (
-        getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT
-    )
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT)
 
 
 def project_scope(project_path, target_path):
@@ -216,7 +214,7 @@ def python_metadata(text):
         if header:
             section = header[1].strip().casefold()
             multiline = False
-            if section in {"pytest", "tool.pytest", "tool.pytest.ini_options"}:
+            if section in {"pytest", "tool:pytest", "tool.pytest", "tool.pytest.ini_options"}:
                 runners.add("pytest")
             if section == "tool.unittest":
                 runners.add("unittest")
