@@ -53,7 +53,7 @@ def build_web():
     return manifest, entries
 
 
-def build_portable(web_manifest):
+def build_portable(web_manifest, web_entries):
     entries = {
         "README.md": (PORTABLE / "README.md").read_bytes(),
         "PROJECT-RULES.md": (PORTABLE / "PROJECT-RULES.md").read_bytes(),
@@ -90,6 +90,9 @@ def build_portable(web_manifest):
         entries[SKILL_ROOT + "references/" + filename] = content.encode("utf-8")
     for name in HARNESS_SKILLS:
         entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
+    for name, content in web_entries.items():
+        if name.startswith("skills/stack/") and "/agents/" not in name:
+            entries[name] = content
     return entries
 
 
@@ -98,7 +101,7 @@ def main():
     version = manifest["version"]
     releases = ROOT / "releases"
     write_zip(releases / f"Talon-{version}-web.zip", web)
-    write_zip(releases / f"Talon-{version}-agents.zip", build_portable(manifest))
+    write_zip(releases / f"Talon-{version}-agents.zip", build_portable(manifest, web))
 
 
 if __name__ == "__main__":
