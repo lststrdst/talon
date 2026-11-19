@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · Hermes Agent"
+  short_description: "Проверяет навыки, профиль и инструменты Hermes Agent"
+  default_prompt: "Используй $talon:harness-hermes и определи, какие инструменты Hermes Agent пригодятся для моей задачи в этом проекте."

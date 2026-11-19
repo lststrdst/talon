@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · Pi Coding Agent"
+  short_description: "Проверяет навыки, инструменты и расширения Pi"
+  default_prompt: "Используй $talon:harness-pi и определи, какие инструменты Pi доступны для проверки моего проекта."

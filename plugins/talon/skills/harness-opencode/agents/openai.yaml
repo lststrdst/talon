@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · OpenCode"
+  short_description: "Подбирает агентов и проверяет разрешения OpenCode"
+  default_prompt: "Используй $talon:harness-opencode и определи, как выполнить мою задачу средствами установленной версии OpenCode."

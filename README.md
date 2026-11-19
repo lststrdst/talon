@@ -21,11 +21,11 @@ codex plugin add talon@talon-marketplace
 
 Откройте новый чат Codex в нужном проекте. Для обновления сначала выполните `codex plugin marketplace upgrade talon-marketplace`, затем повторите команду установки плагина.
 
-Для ChatGPT в браузере скачайте [веб-архив Talon 2.6.0](https://github.com/lststrdst/talon/raw/refs/tags/v2.6.0/releases/Talon-2.6.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит семь навыков, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
+Для ChatGPT в браузере скачайте [веб-архив Talon 2.7.0](https://github.com/lststrdst/talon/raw/refs/tags/v2.7.0/releases/Talon-2.7.0-web.zip) и выберите «Плагины → Добавить → Загрузить архив плагина». Архив содержит основные навыки, пять навыков по агентским рантаймам, скрипты и каталог UI/UX Pro Max. Разработчик — `lststrdst`.
 
-Для Hermes Agent, OpenCode, OpenClaw, Pi и DeepSeek Harness скачайте [Talon для агентских рантаймов](https://github.com/lststrdst/talon/raw/refs/tags/v2.6.0/releases/Talon-2.6.0-agents.zip). Навык разработки, Python, PowerShell, серверного администрирования и QA подключается к проекту через `.agents/skills/`. В архиве есть инструкция для каждого рантайма и готовый блок для `AGENTS.md`.
+Для Hermes Agent, OpenCode, OpenClaw, Pi и DeepSeek Harness скачайте [Talon для агентских рантаймов](https://github.com/lststrdst/talon/raw/refs/tags/v2.7.0/releases/Talon-2.7.0-agents.zip). Скопируйте навыки в `.agents/skills/`. Talon выбирает профиль нужного рантайма по задаче и учитывает его способ загрузки навыков, доступные инструменты, разрешения и делегирование. В архиве есть правила для `AGENTS.md`.
 
-Чтобы Talon запоминал проверенные решения, попросите включить память в конкретном проекте или добавьте правила из `PROJECT-RULES.md`. Записи в `.agents/talon/learned.md` дают следующей сессии рабочие команды проверки и условия, при которых они пригодились.
+Память Talon включена по умолчанию в конкретном проекте. Записи дают следующей сессии рабочие команды и условия, при которых они сработали. Обычный путь — `.agents/talon/learned.md`. Когда `.agents/` защищён песочницей, Talon использует `.talon/learned.md`. Чтобы отключить память, укажите это в задаче или в `AGENTS.md` проекта.
 
 Для обычных задач Talon использует модель основного чата. Для новых обычных подагентов Talon выбирает GPT-6.2 Sol Ultra, для сложного этапа — GPT-6.2 Astra Extra High, если среда поддерживает выбор модели подагента. Повторное поручение сохраняет модель агента. Talon сверяет её перед повторным использованием. В локальном Codex также доступен профиль `talon-astra` из инструкции ниже.
 

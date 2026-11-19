@@ -12,6 +12,7 @@ PLUGIN = ROOT / "plugins/talon"
 PORTABLE = ROOT / "portable"
 SKILL_ROOT = "skills/talon/"
 SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+HARNESS_SKILLS = ("harness-hermes", "harness-opencode", "harness-openclaw", "harness-pi", "harness-deepseek")
 
 
 def write_zip(path, entries):
@@ -79,6 +80,7 @@ def build_portable(web_manifest):
         "graphify.md": "build/references/graphify.md",
         "failure-testing.md": "qa/references/failure-testing.md",
         "project-memory.md": "go/references/project-memory.md",
+        "harness-routing.md": "go/references/harness-routing.md",
     }
     entries[SKILL_ROOT + "scripts/verify.py"] = (PLUGIN / "skills/build/scripts/verify.py").read_bytes()
     for filename, source in sources.items():
@@ -86,6 +88,8 @@ def build_portable(web_manifest):
         content = content.replace("../../qa/references/failure-testing.md", "failure-testing.md")
         content = content.replace("../../qa/SKILL.md", "failure-testing.md")
         entries[SKILL_ROOT + "references/" + filename] = content.encode("utf-8")
+    for name in HARNESS_SKILLS:
+        entries[f"skills/{name}/SKILL.md"] = (PLUGIN / "skills" / name / "SKILL.md").read_bytes()
     return entries
 
 

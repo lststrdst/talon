@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talon · OpenClaw"
+  short_description: "Диагностирует навыки и доступ инструментов OpenClaw"
+  default_prompt: "Используй $talon:harness-openclaw и проверь, какой агент и какие инструменты OpenClaw подходят для моей задачи."
