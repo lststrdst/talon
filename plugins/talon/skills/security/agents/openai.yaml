@@ -1,6 +1,8 @@
 interface:
   display_name: "Talon · Проверка безопасности"
   short_description: "Проверяет защиту по коду и конфигурации"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:security и проверь, где код подтверждает права доступа к данным."
 policy:
   allow_implicit_invocation: false

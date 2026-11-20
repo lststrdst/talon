@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Разработка"
   short_description: "Разбирает код, реализует функции и автоматизацию"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:build, найди точку входа моей задачи в проекте и предложи проверяемый план реализации."

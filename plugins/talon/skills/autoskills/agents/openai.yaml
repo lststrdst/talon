@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Навыки под проект"
   short_description: "Подключает нужный навык по ходу выполнения задачи"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:autoskills, найди конкретный пробел в текущей задаче и подключи подходящий навык в рамках моего разрешения."

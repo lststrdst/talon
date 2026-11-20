@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · DeepSeek Harness"
   short_description: "Проверяет плагины и инструменты DeepSeek Harness"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:harness-deepseek и проверь, какие плагины и инструменты DeepSeek Harness доступны для моей задачи."

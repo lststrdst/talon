@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Дизайн"
   short_description: "Проектирует UI и проверяет UX с UI/UX Pro Max"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:design, чтобы улучшить интерфейс проекта и проверить его удобство и доступность."

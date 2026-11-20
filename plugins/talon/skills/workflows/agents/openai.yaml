@@ -1,0 +1,6 @@
+interface:
+  display_name: "Talon · Автоматизация процессов"
+  short_description: "Проектирует и проверяет автоматизации в n8n"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
+  default_prompt: "Используй $talon:workflows, чтобы собрать workflow в n8n и проверить его на синтетических данных."

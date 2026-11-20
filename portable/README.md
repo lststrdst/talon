@@ -1,5 +1,7 @@
 # Talon для агентских рантаймов
 
+<img src="../plugins/talon/assets/talon.png" alt="Иконка Talon" width="96" height="96" />
+
 Пакет добавляет разбор репозитория, реализацию фич, работу с Python, PowerShell, Linux, Windows Server, удалённым доступом и QA. Общий навык `talon` работает с инструментами выбранного рантайма и выдаёт задачи исследователю, исполнителю, QA или ревьюеру по мере необходимости. Модель, делегирование и доступ к серверу определяет конфигурация рантайма.
 
 В обычной задаче попросите «Напиши Python-скрипт, прогони его на тестовых данных и покажи результат». Для сервера укажите доступный SSH-алиас и нужный объект, например службу или задачу. Помощник `talon/scripts/verify.py` даёт код завершения, проверку ожидаемого вывода, таймаут и сводку по свежему JUnit.
@@ -21,3 +23,5 @@
 | DeepSeek Harness | Открой проект как рабочую папку с файловыми навыками и вызови `/talon` с задачей. Одноимённый навык в `.dsh/skills/` имеет приоритет. [Файловые навыки и приоритет](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/skill/skill-filesystem/README.md#roots-and-priority) · [Вызов навыка](https://github.com/deepseek-ai/deepseek-harness/blob/dsh-v0.2.2-rc.5/packages/client/ui-skill/README.md#use-this-package) |
 
 Распакованный пакет также содержит стандартный `plugin.json` формата Agent Plugins. Hermes Agent и OpenClaw с поддержкой этого формата могут загружать каталог как пакет навыков. Для памяти и правил конкретного проекта используй настройку выше. [Agent Plugins](https://agent-plugins.org/specification) · [Hermes Agent](https://hermes-agent.nousresearch.com/docs/developer-guide/plugins#portable-agent-plugins-v1-packages) · [OpenClaw](https://docs.openclaw.ai/plugins/bundles)
+
+В Claude Code запустите `claude --plugin-dir /путь/к/распакованному-архиву` из каталога вашего проекта и вызовите `/talon:talon`. В списке `/plugin` проверьте загруженный Talon. Для Claude Agent SDK укажите этот же абсолютный путь в `ClaudeAgentOptions.plugins`. [Пример загрузки из каталога](https://github.com/anthropics/claude-agent-sdk-python/blob/main/examples/plugin_example.py)

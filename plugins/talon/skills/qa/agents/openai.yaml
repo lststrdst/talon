@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Тестирование"
   short_description: "Проверяет поведение и помогает исправлять баги"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:qa, чтобы воспроизвести дефект, исправить его и независимо проверить регрессию."

@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Стек проекта"
   short_description: "Определяет языки, фреймворки и проверки проекта"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:stack и определи стек нужного компонента, среду и команды проверки по манифестам и CI."

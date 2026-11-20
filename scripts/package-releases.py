@@ -58,7 +58,11 @@ def build_web():
 def build_portable(web_manifest, web_entries):
     entries = {
         E2E_PROFILE: web_entries[E2E_PROFILE],
-        "README.md": (PORTABLE / "README.md").read_bytes(),
+        "assets/talon.png": web_entries["assets/talon.png"],
+        "assets/talon.svg": web_entries["assets/talon.svg"],
+        "README.md": (PORTABLE / "README.md").read_bytes().replace(
+            b"../plugins/talon/assets/talon.png", b"assets/talon.png"
+        ),
         "PROJECT-RULES.md": (PORTABLE / "PROJECT-RULES.md").read_bytes(),
         SKILL_ROOT + "SKILL.md": (PORTABLE / "talon/SKILL.md").read_bytes(),
         SKILL_ROOT + "references/agent-roles.md": (PORTABLE / "talon/references/agent-roles.md").read_bytes(),
@@ -72,6 +76,11 @@ def build_portable(web_manifest, web_entries):
         "repository": web_manifest["interface"]["websiteURL"],
     }
     entries["plugin.json"] = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+
+    claude_manifest = {key: manifest[key] for key in ("name", "version", "description", "author")}
+    entries[".claude-plugin/plugin.json"] = (
+        json.dumps(claude_manifest, ensure_ascii=False, indent=2) + "\n"
+    ).encode("utf-8")
 
     sources = {
         "feature-work.md": "build/references/feature-work.md",

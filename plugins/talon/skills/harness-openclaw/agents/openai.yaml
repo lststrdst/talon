@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · OpenClaw"
   short_description: "Диагностирует навыки и доступ инструментов OpenClaw"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:harness-openclaw и проверь, какой агент и какие инструменты OpenClaw подходят для моей задачи."

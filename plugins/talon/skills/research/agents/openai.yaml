@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Поиск решений"
   short_description: "Ищет в Git, GitHub и документации"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:research, найди причину по истории и документации и проверь, подходит ли решение к версии проекта."

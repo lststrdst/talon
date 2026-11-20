@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Сквозные тесты"
   short_description: "Пишет и запускает тесты мобильного и веб-интерфейса"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:e2e, воспроизведи путь пользователя, запусти тест и покажи, где результат расходится с ожиданием."

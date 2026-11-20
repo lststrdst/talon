@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Продвижение"
   short_description: "Запуск продукта, продвижение и измеримый пилот"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:launch, чтобы составить план пилота с каналом, черновиком анонса и критериями решения."

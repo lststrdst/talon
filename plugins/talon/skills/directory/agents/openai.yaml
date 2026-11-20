@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · AD, DNS и Яндекс"
   short_description: "Проверяет AD, GPO, DNS и синхронизацию Яндекс 360"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:directory, подбери документацию по моей версии и предложи проверку эффекта на согласованной среде."

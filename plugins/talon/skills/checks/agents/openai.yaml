@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Воспроизводимые проверки"
   short_description: "Проверяет CI, тестовые сервисы, UI и отчёты"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:checks, выбери штатную проверку и подтверди результат фактическим прогоном."

@@ -1,0 +1,8 @@
+{
+  "viewport": { "width": 360, "height": 240 },
+  "frame": "#frame",
+  "tolerance": 1,
+  "targets": [
+    { "selector": "button", "bounds": { "x": 24, "width": 136, "height": 44 } }
+  ]
+}

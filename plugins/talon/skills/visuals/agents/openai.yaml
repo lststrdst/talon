@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Изображения"
   short_description: "Генерирует, редактирует и проверяет изображения"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:visuals, чтобы создать предметное изображение, подготовить размеры для сайта и проверить кадр на узком экране."

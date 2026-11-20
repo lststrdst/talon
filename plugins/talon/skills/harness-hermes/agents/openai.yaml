@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Hermes Agent"
   short_description: "Проверяет навыки, профиль и инструменты Hermes Agent"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:harness-hermes и определи, какие инструменты Hermes Agent пригодятся для моей задачи в этом проекте."

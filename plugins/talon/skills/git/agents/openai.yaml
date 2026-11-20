@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Git"
   short_description: "Работает с ветками, коммитами и remote"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:git, проверь рабочую копию и выполни запрошенную операцию Git."

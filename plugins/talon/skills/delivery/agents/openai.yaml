@@ -1,4 +1,6 @@
 interface:
   display_name: "Talon · Сквозная разработка"
   short_description: "Ведёт фичу от требований до проверенного релиза"
+  icon_small: "../../assets/talon.png"
+  icon_large: "../../assets/talon.png"
   default_prompt: "Используй $talon:delivery, определи затронутые компоненты и критерии, выполни запрошенный шаг и подтверди результат."
